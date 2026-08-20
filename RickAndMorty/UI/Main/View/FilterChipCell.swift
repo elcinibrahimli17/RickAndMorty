@@ -42,8 +42,6 @@ class FilterChipCell: UICollectionViewCell {
         return imageView
     }()
     
-    private var onClearTapped: (() -> Void)?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -91,7 +89,10 @@ class FilterChipCell: UICollectionViewCell {
     
     @objc private func closeButtonTapped() {
         onClearTapped?()
+        
     }
+    
+    private var onClearTapped: (() -> Void)?
     
     func configure(title: String, isSelected: Bool, onClear: (() -> Void)? = nil) {
         titleLabel.text = title

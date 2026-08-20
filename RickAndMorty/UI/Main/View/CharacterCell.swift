@@ -177,6 +177,8 @@ class CharacterCell: UICollectionViewCell {
             logoImageView.image = UIImage(named: "male")
         case "female":
             logoImageView.image = UIImage(named: "female")
+        case "genderless":
+            logoImageView.image = UIImage(named: "vector1")
         default:
             logoImageView.image = UIImage(named: "questionmark")
 

@@ -34,7 +34,7 @@ class ViewController: UIViewController {
         searchBar.searchBarStyle = .minimal
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.searchTextField.backgroundColor = UIColor(hex: "D9D9D9", alpha: 0.7)
-        searchBar.searchTextField.layer.cornerRadius = 10
+        searchBar.searchTextField.layer.cornerRadius = 15
         searchBar.searchTextField.clipsToBounds = true
         
         searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
@@ -67,12 +67,15 @@ class ViewController: UIViewController {
     private lazy var characterCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 12
+        //        layout.minimumInteritemSpacing = 12
+        //        layout.minimumLineSpacing = 16
+        //        layout.sectionInset = UIEdgeInsets(top: 12, left: 16, bottom: 16, right: 16)
+        layout.minimumInteritemSpacing = 27
         layout.minimumLineSpacing = 16
-        layout.sectionInset = UIEdgeInsets(top: 12, left: 16, bottom: 16, right: 16)
-        
+        layout.sectionInset = UIEdgeInsets(top: 12, left: 23, bottom: 16, right: 23)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: CharacterCell.reuseIdentifier)
         return collectionView
@@ -89,6 +92,23 @@ class ViewController: UIViewController {
         setupDelegates()
         viewModel.fetchCharacters()
         
+        let tapGesture = UITapGestureRecognizer(
+                target: self,
+                action: #selector(dismissKeyboard)
+            )
+            tapGesture.cancelsTouchesInView = false
+            view.addGestureRecognizer(tapGesture)
+        
+    }
+    
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
+    private func scrollCharactersToTopIfNeeded() {
+        guard characterCollectionView.numberOfItems(inSection: 0) > 0 else { return }
+        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,10 +128,10 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 65),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
+            subtitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             
             searchBar.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 15),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 22),
@@ -119,13 +139,13 @@ class ViewController: UIViewController {
             searchBar.heightAnchor.constraint(equalToConstant: 45),
             
             filterCollectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 14),
-            filterCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            filterCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             filterCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             filterCollectionView.heightAnchor.constraint(equalToConstant: 28),
             
-            characterCollectionView.topAnchor.constraint(equalTo: filterCollectionView.bottomAnchor, constant: 38),
-            characterCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 23),
-            characterCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -23),
+            characterCollectionView.topAnchor.constraint(equalTo: filterCollectionView.bottomAnchor, constant: 16),
+            characterCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            characterCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             characterCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -143,16 +163,22 @@ class ViewController: UIViewController {
     private func didSelectGenderFilter(_ gender: String) {
         viewModel.selectGender(gender)
         filterCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+//        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
+        scrollCharactersToTopIfNeeded()
     }
     
     private func didSelectSpeciesFilter(_ species: String) {
         viewModel.selectSpecies(species)
         filterCollectionView.reloadItems(at: [IndexPath(item: 1, section: 0)])
+//        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
+        scrollCharactersToTopIfNeeded()
     }
     
     private func didSelectStatusFilter(_ status: String) {
         viewModel.selectStatus(status)
         filterCollectionView.reloadItems(at: [IndexPath(item: 2, section: 0)])
+//        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
+        scrollCharactersToTopIfNeeded()
     }
     
 }
@@ -178,6 +204,13 @@ extension ViewController: UICollectionViewDataSource {
                 cell.configure(title: viewModel.currentGenderTitle, isSelected: isSelected) { [weak self] in
                     self?.viewModel.selectGender(nil)
                     self?.filterCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+                    
+//                    self?.characterCollectionView.scrollToItem(
+//                            at: .init(item: 0, section: 0),
+//                            at: .top,
+//                            animated: false
+//                        )
+                    self?.scrollCharactersToTopIfNeeded()
                 }
                 
                 let genderOptions = ["Male", "Female", "Genderless", "Unknown"]
@@ -193,6 +226,13 @@ extension ViewController: UICollectionViewDataSource {
                 cell.configure(title: viewModel.currentSpeciesTitle, isSelected: isSelected) { [weak self] in
                     self?.viewModel.selectSpecies(nil)
                     self?.filterCollectionView.reloadItems(at: [IndexPath(item: 1, section: 0)])
+                    
+//                    self?.characterCollectionView.scrollToItem(
+//                            at: .init(item: 0, section: 0),
+//                            at: .top,
+//                            animated: false
+//                        )
+                    self?.scrollCharactersToTopIfNeeded()
                 }
                 
                 let speciesOptions = ["Human", "Alien", "Humanoid", "Unknown"]
@@ -208,6 +248,13 @@ extension ViewController: UICollectionViewDataSource {
                 cell.configure(title: viewModel.currentStatusTitle, isSelected: isSelected) { [weak self] in
                     self?.viewModel.selectStatus(nil)
                     self?.filterCollectionView.reloadItems(at: [IndexPath(item: 2, section: 0)])
+                    
+//                    self?.characterCollectionView.scrollToItem(
+//                            at: .init(item: 0, section: 0),
+//                            at: .top,
+//                            animated: false
+//                        )
+                    self?.scrollCharactersToTopIfNeeded()
                 }
                 
                 let statusOptions = ["Alive", "Dead", "unknown"]
@@ -247,10 +294,12 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
             let width = title.size(withAttributes: [.font: font]).width + 42
             return CGSize(width: width, height: 28)
         } else {
-            let spacing: CGFloat = 12 + 16 + 16
-            let width = (collectionView.bounds.width - spacing) / 2
+            //            let spacing: CGFloat = 12 + 16 + 16
+            //            let width = (collectionView.bounds.width - spacing) / 2
+            let spacing: CGFloat = 27 + 23 + 23
+            let width = floor((collectionView.bounds.width - spacing) / 2)
             let imageHeight = width
-            let labelWidth = width - 8 
+            let labelWidth = width - 8
             
             let nameFont = UIFont(name: "Inter18pt-Bold", size: 20) ?? .systemFont(ofSize: 20, weight: .bold)
             let speciesFont = UIFont(name: "Inter18pt-Medium", size: 20) ?? .systemFont(ofSize: 20, weight: .medium)
@@ -303,7 +352,13 @@ extension ViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.search(with: searchText)
+//        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
+        scrollCharactersToTopIfNeeded()
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.resignFirstResponder()
+        }
 }
 
 extension ViewController: CharacterListViewModelDelegate {
@@ -316,13 +371,6 @@ extension ViewController: CharacterListViewModelDelegate {
     }
 }
 
-
-
-
-
-
-
-//
 //class ViewController: UIViewController {
 //
 //    private let viewModel = CharacterListViewModel()
@@ -593,3 +641,4 @@ extension ViewController: CharacterListViewModelDelegate {
 //        print("Xəta: \(message)")
 //    }
 //}
+

@@ -101,7 +101,7 @@ final class CharacterListViewModel {
     }
     
     func loadNextPageIfNeeded(currentIndex: Int) {
-        guard currentIndex >= filteredCharacters.count - 4 else { return }
+        guard currentIndex >= filteredCharacters.count - 2 else { return }
         guard let nextPageURL, !isLoadingNextPage else { return }
         
         isLoadingNextPage = true
