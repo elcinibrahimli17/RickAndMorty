@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		74A994A4302DEC0F00AF371E /* Inter_18pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74A994A3302DEC0F00AF371E /* Inter_18pt-Bold.ttf */; };
 		74A994A6302DEC2800AF371E /* Inter_18pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74A994A5302DEC2800AF371E /* Inter_18pt-Medium.ttf */; };
+		74B51DB13032F43E007A5D4B /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B51DB03032F43E007A5D4B /* UIColor+Hex.swift */; };
+		74B51E17303580EB007A5D4B /* UIView+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B51E16303580EB007A5D4B /* UIView+Gradient.swift */; };
 		74BA645E302DAED000F4923E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA643C302DAED000F4923E /* AppDelegate.swift */; };
 		74BA645F302DAED000F4923E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA643F302DAED000F4923E /* SceneDelegate.swift */; };
 		74BA6460302DAED000F4923E /* BookmarkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74BA6441302DAED000F4923E /* BookmarkManager.swift */; };
@@ -31,6 +33,8 @@
 /* Begin PBXFileReference section */
 		74A994A3302DEC0F00AF371E /* Inter_18pt-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter_18pt-Bold.ttf"; sourceTree = "<group>"; };
 		74A994A5302DEC2800AF371E /* Inter_18pt-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter_18pt-Medium.ttf"; sourceTree = "<group>"; };
+		74B51DB03032F43E007A5D4B /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
+		74B51E16303580EB007A5D4B /* UIView+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Gradient.swift"; sourceTree = "<group>"; };
 		74BA63FB302D876000F4923E /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74BA643C302DAED000F4923E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74BA643D302DAED000F4923E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -97,6 +101,8 @@
 				74BA6441302DAED000F4923E /* BookmarkManager.swift */,
 				74BA6442302DAED000F4923E /* UIImageView+Extension.swift.swift */,
 				74BA6443302DAED000F4923E /* Userdefaults+Extension.swift */,
+				74B51DB03032F43E007A5D4B /* UIColor+Hex.swift */,
+				74B51E16303580EB007A5D4B /* UIView+Gradient.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -304,6 +310,7 @@
 			files = (
 				74BA645E302DAED000F4923E /* AppDelegate.swift in Sources */,
 				74BA645F302DAED000F4923E /* SceneDelegate.swift in Sources */,
+				74B51E17303580EB007A5D4B /* UIView+Gradient.swift in Sources */,
 				74BA6460302DAED000F4923E /* BookmarkManager.swift in Sources */,
 				74BA6461302DAED000F4923E /* UIImageView+Extension.swift.swift in Sources */,
 				74BA6462302DAED000F4923E /* Userdefaults+Extension.swift in Sources */,
@@ -311,6 +318,7 @@
 				74BA6464302DAED000F4923E /* NetworkService.swift in Sources */,
 				74BA6465302DAED000F4923E /* DetailViewController.swift in Sources */,
 				74BA6466302DAED000F4923E /* ViewController.swift in Sources */,
+				74B51DB13032F43E007A5D4B /* UIColor+Hex.swift in Sources */,
 				74BA6470302DB0B400F4923E /* DetailViewModel.swift in Sources */,
 				74BA6467302DAED000F4923E /* Character.swift in Sources */,
 				74BA6468302DAED000F4923E /* CharacterCell.swift in Sources */,
@@ -340,6 +348,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 52TQ9YMMYR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RickAndMorty/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -352,7 +361,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.info.RickAndMorty;
+				PRODUCT_BUNDLE_IDENTIFIER = com.info.RickAndMorty.Elchin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -375,6 +384,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 52TQ9YMMYR;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = RickAndMorty/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -387,7 +397,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.info.RickAndMorty;
+				PRODUCT_BUNDLE_IDENTIFIER = com.info.RickAndMorty.Elchin;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

@@ -8,10 +8,6 @@
 		<string>Inter_18pt-Bold.ttf</string>
 		<string>Inter_18pt-Medium.ttf</string>
 	</array>
-	<key>CFBundleExecutable</key>
-	<string></string>
-	<key>CFBundleInfoDictionaryVersion</key>
-	<string>6.0</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

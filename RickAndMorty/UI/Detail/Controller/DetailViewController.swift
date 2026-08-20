@@ -35,6 +35,8 @@ class DetailViewController: UIViewController {
         label.font = UIFont(name: "IrishGrover-Regular", size: 44)
         label.textColor = .white
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.5
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -68,19 +70,11 @@ class DetailViewController: UIViewController {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-//            nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 60),
-//            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-//            nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-
+            
             nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 107),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 59),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -59),
-            
-//            characterImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
-//            characterImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-//            characterImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-//            characterImageView.heightAnchor.constraint(equalTo: characterImageView.widthAnchor),
-            
+                   
             characterImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 171),
             characterImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             characterImageView.widthAnchor.constraint(equalToConstant: 361),

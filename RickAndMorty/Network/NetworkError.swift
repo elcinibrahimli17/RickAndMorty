@@ -21,7 +21,7 @@ enum NetworkError: Error {
     var errorMessage: String {
         switch self {
         case .badURL:
-            return "Bad Request"
+            return "Bad URL"
         case .badBody:
             return "Missing body"
         case .badData:
