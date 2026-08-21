@@ -67,9 +67,6 @@ class ViewController: UIViewController {
     private lazy var characterCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        //        layout.minimumInteritemSpacing = 12
-        //        layout.minimumLineSpacing = 16
-        //        layout.sectionInset = UIEdgeInsets(top: 12, left: 16, bottom: 16, right: 16)
         layout.minimumInteritemSpacing = 27
         layout.minimumLineSpacing = 16
         layout.sectionInset = UIEdgeInsets(top: 12, left: 23, bottom: 16, right: 23)
@@ -163,21 +160,18 @@ class ViewController: UIViewController {
     private func didSelectGenderFilter(_ gender: String) {
         viewModel.selectGender(gender)
         filterCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
-//        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
         scrollCharactersToTopIfNeeded()
     }
     
     private func didSelectSpeciesFilter(_ species: String) {
         viewModel.selectSpecies(species)
         filterCollectionView.reloadItems(at: [IndexPath(item: 1, section: 0)])
-//        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
         scrollCharactersToTopIfNeeded()
     }
     
     private func didSelectStatusFilter(_ status: String) {
         viewModel.selectStatus(status)
         filterCollectionView.reloadItems(at: [IndexPath(item: 2, section: 0)])
-//        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
         scrollCharactersToTopIfNeeded()
     }
     
@@ -204,12 +198,6 @@ extension ViewController: UICollectionViewDataSource {
                 cell.configure(title: viewModel.currentGenderTitle, isSelected: isSelected) { [weak self] in
                     self?.viewModel.selectGender(nil)
                     self?.filterCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
-                    
-//                    self?.characterCollectionView.scrollToItem(
-//                            at: .init(item: 0, section: 0),
-//                            at: .top,
-//                            animated: false
-//                        )
                     self?.scrollCharactersToTopIfNeeded()
                 }
                 
@@ -226,12 +214,6 @@ extension ViewController: UICollectionViewDataSource {
                 cell.configure(title: viewModel.currentSpeciesTitle, isSelected: isSelected) { [weak self] in
                     self?.viewModel.selectSpecies(nil)
                     self?.filterCollectionView.reloadItems(at: [IndexPath(item: 1, section: 0)])
-                    
-//                    self?.characterCollectionView.scrollToItem(
-//                            at: .init(item: 0, section: 0),
-//                            at: .top,
-//                            animated: false
-//                        )
                     self?.scrollCharactersToTopIfNeeded()
                 }
                 
@@ -248,12 +230,6 @@ extension ViewController: UICollectionViewDataSource {
                 cell.configure(title: viewModel.currentStatusTitle, isSelected: isSelected) { [weak self] in
                     self?.viewModel.selectStatus(nil)
                     self?.filterCollectionView.reloadItems(at: [IndexPath(item: 2, section: 0)])
-                    
-//                    self?.characterCollectionView.scrollToItem(
-//                            at: .init(item: 0, section: 0),
-//                            at: .top,
-//                            animated: false
-//                        )
                     self?.scrollCharactersToTopIfNeeded()
                 }
                 
@@ -285,17 +261,30 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        if collectionView == filterCollectionView {
+//            if indexPath.item == 0 {
+//                return CGSize(width: 151, height: 28)
+//            }
+//            let title = viewModel.filterTitles[indexPath.item]
+//            let font = UIFont(name: "Inter18pt-Medium", size: 16) ?? .systemFont(ofSize: 16, weight: .medium)
+//            let width = title.size(withAttributes: [.font: font]).width + 42
+//            return CGSize(width: width, height: 28)
+//        }
         if collectionView == filterCollectionView {
+            let title: String
             if indexPath.item == 0 {
-                return CGSize(width: 151, height: 28)
+                title = viewModel.currentGenderTitle
+            } else if indexPath.item == 1 {
+                title = viewModel.currentSpeciesTitle
+            } else {
+                title = viewModel.currentStatusTitle
             }
-            let title = viewModel.filterTitles[indexPath.item]
+            
             let font = UIFont(name: "Inter18pt-Medium", size: 16) ?? .systemFont(ofSize: 16, weight: .medium)
             let width = title.size(withAttributes: [.font: font]).width + 42
             return CGSize(width: width, height: 28)
+            
         } else {
-            //            let spacing: CGFloat = 12 + 16 + 16
-            //            let width = (collectionView.bounds.width - spacing) / 2
             let spacing: CGFloat = 27 + 23 + 23
             let width = floor((collectionView.bounds.width - spacing) / 2)
             let imageHeight = width
@@ -352,7 +341,6 @@ extension ViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.search(with: searchText)
-//        characterCollectionView.scrollToItem(at: .init(item: 0, section: 0), at: .top, animated: false)
         scrollCharactersToTopIfNeeded()
     }
     
