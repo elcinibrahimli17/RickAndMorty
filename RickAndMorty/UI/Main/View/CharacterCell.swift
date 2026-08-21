@@ -71,7 +71,7 @@ class CharacterCell: UICollectionViewCell {
     private let bookmarkImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "vector")?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = UIColor(red: 18/255, green: 147/255, blue: 23/255, alpha: 1)
+        imageView.tintColor = UIColor.bookmark
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.isHidden = true
@@ -153,40 +153,49 @@ class CharacterCell: UICollectionViewCell {
         switch character.status.lowercased() {
         case "alive":
             statusGradientLayer.colors = [
-                UIColor(red: 0/255, green: 220/255, blue: 7/255, alpha: 1).cgColor,   // #00DC07
-                UIColor(red: 18/255, green: 147/255, blue: 23/255, alpha: 1).cgColor, // #129317
-                UIColor(red: 0/255, green: 220/255, blue: 7/255, alpha: 1).cgColor    // #00DC07
+                UIColor.alive.cgColor,
+                UIColor.aliveColorDark.cgColor,
+                UIColor.alive.cgColor
             ]
         case "dead":
             statusGradientLayer.colors = [
-                UIColor(red: 220/255, green: 0/255, blue: 0/255, alpha: 1).cgColor,   // #DC0000
-                UIColor(red: 147/255, green: 18/255, blue: 18/255, alpha: 1).cgColor, // #931212
-                UIColor(red: 220/255, green: 0/255, blue: 0/255, alpha: 1).cgColor    // #DC0000
+                UIColor.dead.cgColor,
+                UIColor.deadColorDark.cgColor,
+                UIColor.dead.cgColor
             ]
         default:
             statusGradientLayer.colors = [
-                UIColor(red: 208/255, green: 207/255, blue: 207/255, alpha: 1).cgColor, // #D0CFCF
-                UIColor(red: 155/255, green: 155/255, blue: 155/255, alpha: 1).cgColor, // #9B9B9B
-                UIColor(red: 211/255, green: 211/255, blue: 211/255, alpha: 1).cgColor  // #D3D3D3
+                UIColor.unknown.cgColor,
+                UIColor.unknownDark.cgColor,
+                UIColor.unknown.cgColor,
             ]
         }
-        statusGradientLayer.locations = [0.0, 0.5, 1.0]
         
         switch character.gender.lowercased() {
         case "male":
-            logoImageView.image = UIImage(named: "male")
+            logoImageView.image = .male
         case "female":
-            logoImageView.image = UIImage(named: "female")
+            logoImageView.image = .female
         case "genderless":
-            logoImageView.image = UIImage(named: "vector1")
+            logoImageView.image = .vector1
         default:
-            logoImageView.image = UIImage(named: "questionmark")
+            logoImageView.image = .questionmark
 
         }
         
         bookmarkImageView.isHidden = !BookmarkManager.isBookmarked(id: character.id)
     }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

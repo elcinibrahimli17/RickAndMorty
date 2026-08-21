@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 class ViewController: UIViewController {
     
     private let viewModel = CharacterListViewModel()
+    
+    private var cancellables = Set<AnyCancellable>()
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -81,21 +84,38 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hex: "#3A0564")
-        
-        viewModel.delegate = self
-        
         setupHierarchy()
         setupConstraints()
         setupDelegates()
+        cancellablesSubscribtion()
         viewModel.fetchCharacters()
+        tapGesture()
+    }
+    
+    func cancellablesSubscribtion() {
+        viewModel.$filteredCharacters
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.characterCollectionView.reloadData()
+            }
+            .store(in: &cancellables)
         
+        viewModel.$errorText
+            .compactMap { $0 }
+            .receive(on: DispatchQueue.main)
+            .sink { message in
+                print("Xəta: \(message)")
+            }
+            .store(in: &cancellables)
+    }
+    
+    func tapGesture() {
         let tapGesture = UITapGestureRecognizer(
-                target: self,
-                action: #selector(dismissKeyboard)
-            )
-            tapGesture.cancelsTouchesInView = false
-            view.addGestureRecognizer(tapGesture)
-        
+            target: self,
+            action: #selector(dismissKeyboard)
+        )
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
     }
     
     
@@ -261,15 +281,6 @@ extension ViewController: UICollectionViewDataSource {
 extension ViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        if collectionView == filterCollectionView {
-//            if indexPath.item == 0 {
-//                return CGSize(width: 151, height: 28)
-//            }
-//            let title = viewModel.filterTitles[indexPath.item]
-//            let font = UIFont(name: "Inter18pt-Medium", size: 16) ?? .systemFont(ofSize: 16, weight: .medium)
-//            let width = title.size(withAttributes: [.font: font]).width + 42
-//            return CGSize(width: width, height: 28)
-//        }
         if collectionView == filterCollectionView {
             let title: String
             if indexPath.item == 0 {
@@ -345,19 +356,29 @@ extension ViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-            searchBar.resignFirstResponder()
-        }
+        searchBar.resignFirstResponder()
+    }
 }
 
-extension ViewController: CharacterListViewModelDelegate {
-    func didUpdateCharacters() {
-        characterCollectionView.reloadData()
-    }
-    
-    func didFailWithError(_ message: String) {
-        print("Xəta: \(message)")
-    }
-}
+
+
+
+
+
+
+
+
+
+
+//extension ViewController: CharacterListViewModelDelegate {
+//    func didUpdateCharacters() {
+//        characterCollectionView.reloadData()
+//    }
+//
+//    func didFailWithError(_ message: String) {
+//        print("Xəta: \(message)")
+//    }
+//}
 
 //class ViewController: UIViewController {
 //

@@ -21,7 +21,7 @@ class FilterChipCell: UICollectionViewCell {
     let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor.filter
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()

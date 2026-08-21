@@ -74,12 +74,12 @@ class DetailViewController: UIViewController {
             nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 107),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 59),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -59),
-                   
+            
             characterImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 171),
             characterImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             characterImageView.widthAnchor.constraint(equalToConstant: 361),
             characterImageView.heightAnchor.constraint(equalToConstant: 329),
-
+            
             infoStackView.topAnchor.constraint(equalTo: characterImageView.bottomAnchor, constant: 51),
             infoStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             infoStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
@@ -119,7 +119,7 @@ class DetailViewController: UIViewController {
         bookmarkButton.tintColor = .white
         navigationItem.rightBarButtonItem = bookmarkButton
     }
-
+    
     @objc private func bookmarkTapped() {
         viewModel.toggleBookmark()
     }

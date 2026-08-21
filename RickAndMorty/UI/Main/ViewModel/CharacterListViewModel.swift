@@ -6,20 +6,15 @@
 //
 
 import Foundation
+import Combine
 
-protocol CharacterListViewModelDelegate: AnyObject {
-    func didUpdateCharacters()
-    func didFailWithError(_ message: String)
-}
-
-final class CharacterListViewModel {
-    
-    weak var delegate: CharacterListViewModelDelegate?
+final class CharacterListViewModel: ObservableObject {
     
     private let networkService = NetworkService()
     private let baseURL = "https://rickandmortyapi.com/api/character"
     
-    private(set) var filteredCharacters: [Character] = []
+    @Published private(set) var filteredCharacters: [Character] = []
+    @Published var errorText: String?
     
     private var currentSearchText: String = ""
     private var selectedGender: String?
@@ -74,7 +69,7 @@ final class CharacterListViewModel {
         components?.queryItems = queryItems.isEmpty ? nil : queryItems
         
         guard let url = components?.url else {
-            delegate?.didFailWithError(NetworkError.badURL.errorMessage)
+            errorText = NetworkError.badURL.errorMessage
             return
         }
         
@@ -85,15 +80,14 @@ final class CharacterListViewModel {
                 switch result {
                 case .success(let response):
                     self.filteredCharacters = response.results
+                    self.errorText = nil
                     self.nextPageURL = response.info.next
-                    self.delegate?.didUpdateCharacters()
                 case .failure(let error):
                     if case .notFound = error {
                         self.filteredCharacters = []
                         self.nextPageURL = nil
-                        self.delegate?.didUpdateCharacters()
                     } else {
-                        self.delegate?.didFailWithError(error.errorMessage)
+                        self.errorText = error.errorMessage
                     }
                 }
             }
@@ -116,9 +110,8 @@ final class CharacterListViewModel {
                 case .success(let response):
                     self.filteredCharacters.append(contentsOf: response.results)
                     self.nextPageURL = response.info.next
-                    self.delegate?.didUpdateCharacters()
                 case .failure(let error):
-                    self.delegate?.didFailWithError(error.errorMessage)
+                    self.errorText = error.errorMessage
                 }
             }
         }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		748E18773038372D00987DE7 /* (UIColor+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 748E18763038372D00987DE7 /* (UIColor+App.swift */; };
 		74A994A4302DEC0F00AF371E /* Inter_18pt-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74A994A3302DEC0F00AF371E /* Inter_18pt-Bold.ttf */; };
 		74A994A6302DEC2800AF371E /* Inter_18pt-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 74A994A5302DEC2800AF371E /* Inter_18pt-Medium.ttf */; };
 		74B51DB13032F43E007A5D4B /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74B51DB03032F43E007A5D4B /* UIColor+Hex.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		748E18763038372D00987DE7 /* (UIColor+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "(UIColor+App.swift"; sourceTree = "<group>"; };
 		74A994A3302DEC0F00AF371E /* Inter_18pt-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter_18pt-Bold.ttf"; sourceTree = "<group>"; };
 		74A994A5302DEC2800AF371E /* Inter_18pt-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Inter_18pt-Medium.ttf"; sourceTree = "<group>"; };
 		74B51DB03032F43E007A5D4B /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				74BA6443302DAED000F4923E /* Userdefaults+Extension.swift */,
 				74B51DB03032F43E007A5D4B /* UIColor+Hex.swift */,
 				74B51E16303580EB007A5D4B /* UIView+Gradient.swift */,
+				748E18763038372D00987DE7 /* (UIColor+App.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -321,6 +324,7 @@
 				74B51DB13032F43E007A5D4B /* UIColor+Hex.swift in Sources */,
 				74BA6470302DB0B400F4923E /* DetailViewModel.swift in Sources */,
 				74BA6467302DAED000F4923E /* Character.swift in Sources */,
+				748E18773038372D00987DE7 /* (UIColor+App.swift in Sources */,
 				74BA6468302DAED000F4923E /* CharacterCell.swift in Sources */,
 				74BA6469302DAED000F4923E /* FilterChipCell.swift in Sources */,
 				74BA646A302DAED000F4923E /* CharacterListViewModel.swift in Sources */,
